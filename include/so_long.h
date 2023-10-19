@@ -13,8 +13,8 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include "../../../mlx_linux/mlx.h"
-# include "../42-libft/libft.h"
+# include "../mlx/mlx.h"
+# include "../libft/libft.h"
 # include "bool.h"
 
 typedef struct _t_win {

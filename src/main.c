@@ -14,12 +14,16 @@
 
 int main()
 {
-    win_t win;
+	t_win *win;
 
-    win.mlx = mlx_init();
-	win.win = mlx_new_window(win.mlx, 1280, 920, "Hello world!");
+	win = malloc(sizeof(t_win));
+	if (!win)
+		return (EXIT_FAILURE);
+	win->mlx = mlx_init();
+	win->win = mlx_new_window(win->mlx, 1280, 920, "Hello world!");
 
-    init_event_handlers(&win);
+	init_event_handlers(win);
 
-    return 0;
+	mlx_loop(win->mlx);
+	return 0;
 }
