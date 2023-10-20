@@ -6,7 +6,8 @@ CFLAGS = -Wall -Wextra -Werror -g
 # -fsanitize=address
 
 SRC =	main.c\
-		eventHandlers.c
+		eventHandlers.c\
+		img.c
 
 libdir = libft
 LIBFT = $(libdir)/libft.a
