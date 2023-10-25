@@ -6,7 +6,8 @@ CFLAGS = -Wall -Wextra -Werror -g
 # -fsanitize=address
 
 SRC =	main.c\
-		eventHandlers.c
+		eventHandlers.c\
+		img.c
 
 libdir = libft
 libname = libft.a
@@ -105,6 +106,8 @@ $(NAME): $(LIBFT) $(OBJS)
 	${HOWTO}
 
 $(OBJ_DIR)/%.o: $(SRCS)
+	@mkdir -p $(OBJ_DIR)
+	@$(CC) $(CFLAGS) -o $@ -c $<
 	@mkdir -p $(OBJ_DIR)
 	@$(CC) $(CFLAGS) -o $@ -c $<
 clean:
