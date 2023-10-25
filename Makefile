@@ -8,8 +8,9 @@ CFLAGS = -Wall -Wextra -Werror -g
 SRC =	main.c\
 		eventHandlers.c
 
-libdir = 42-libft
-LIBFT = $(libdir)/libft.a
+libdir = libft
+libname = libft.a
+LIBFT = $(libdir)/$(libname)
 
 OBJ_DIR = obj
 SRCS = $(addprefix src/, $(SRC))
@@ -99,13 +100,13 @@ $(LIBFT):
 	@make -s -C $(libdir)
 
 $(NAME): $(LIBFT) $(OBJS)
-	@$(CC) $(CFLAGS) -I ../mlx_linux $(SRCS) $(LIBFT) -L ../../mlx_linux -lmlx -lXext -lX11 -o $(NAME)
+	@$(CC) $(CFLAGS) -I mlx $(SRCS) $(LIBFT) -L mlx -L $(libdir) -lft -lmlx -lXext -lX11 -o $(NAME)
 	$(MSG1)
 	${HOWTO}
 
 $(OBJ_DIR)/%.o: $(SRCS)
-		@mkdir -p $(OBJ_DIR)
-		@$(CC) $(CFLAGS) -o $@ -c $<
+	@mkdir -p $(OBJ_DIR)
+	@$(CC) $(CFLAGS) -o $@ -c $<
 clean:
 	@/bin/rm -rf $(OBJ_DIR)
 	@make clean --no-print-directory -C $(libdir)
