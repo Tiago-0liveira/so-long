@@ -13,6 +13,10 @@ libdir = libft
 libname = libft.a
 LIBFT = $(libdir)/$(libname)
 
+MLX_DIR = mlx
+MLX_NAME = libmlx.a
+MLX = $(MLX_DIR)/$(MLX_NAME)
+
 OBJ_DIR = obj
 SRCS = $(addprefix src/, $(SRC))
 OBJS = $(patsubst src/%, $(OBJ_DIR)/%, $(SRCS:%.c=%.o))
@@ -100,10 +104,13 @@ all: $(NAME)
 $(LIBFT):
 	@make -s -C $(libdir)
 
-$(NAME): $(LIBFT) $(OBJS)
-	@$(CC) $(CFLAGS) -I mlx $(SRCS) $(LIBFT) -L mlx -L $(libdir) -lft -lmlx -lXext -lX11 -o $(NAME)
+$(NAME): $(MLX) $(LIBFT) $(OBJS)
+	@$(CC) $(CFLAGS) -I $(MLX_DIR) $(SRCS) $(LIBFT) -L $(MLX_DIR) -L $(libdir) -lft -lmlx -lXext -lX11 -o $(NAME)
 	$(MSG1)
 	${HOWTO}
+
+$(MLX):
+	@-cd mlx; ./configure
 
 $(OBJ_DIR)/%.o: $(SRCS)
 	@mkdir -p $(OBJ_DIR)
