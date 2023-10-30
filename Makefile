@@ -7,8 +7,11 @@ CFLAGS = -Wall -Wextra -Werror -g
 
 SRC =	main.c\
 		eventHandlers.c\
-		img.c
-
+		img.c\
+		map.c\
+		utils.c\
+		player.c
+		
 libdir = libft
 libname = libft.a
 LIBFT = $(libdir)/$(libname)
