@@ -6,7 +6,7 @@
 /*   By: tiagoliv <tiagoliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:56:59 by tiagoliv          #+#    #+#             */
-/*   Updated: 2023/10/27 21:28:49 by tiagoliv         ###   ########.fr       */
+/*   Updated: 2023/11/02 15:12:43 by tiagoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	render_map(t_win *win, t_game *game)
 		j = 0;
 		while (j < game->map->width)
 		{
-			identifier = get_identifier(game->map->map[i][j]);
+			identifier = game->map->map[i][j];
 			mlx_put_image_to_window(win->mlx, win->win,
 				game->assets->ground->p_img, j * IMAGE_SIZE, i * IMAGE_SIZE);
 			if (identifier != EMPTY)
@@ -80,7 +80,7 @@ void	render_map(t_win *win, t_game *game)
 		i++;
 	}
 	mlx_put_image_to_window(win->mlx, win->win, game->assets->player->p_img,
-		game->player->x * IMAGE_SIZE, game->player->y * IMAGE_SIZE);
+		game->player->coords.x * IMAGE_SIZE, game->player->coords.y * IMAGE_SIZE);
 	ft_printf("just rendered everything\n");
 }
 

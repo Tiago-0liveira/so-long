@@ -9,6 +9,8 @@ SRC =	main.c\
 		eventHandlers.c\
 		img.c\
 		map.c\
+		check_map.c\
+		map_utils.c\
 		utils.c\
 		player.c
 		

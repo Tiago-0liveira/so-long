@@ -6,7 +6,7 @@
 /*   By: tiagoliv <tiagoliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 14:44:03 by tiagoliv          #+#    #+#             */
-/*   Updated: 2023/10/27 21:42:48 by tiagoliv         ###   ########.fr       */
+/*   Updated: 2023/11/02 15:27:50 by tiagoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,26 +33,15 @@ static int	key_press(int keycode, t_so_long *so_long)
 	t_bool	moved;
 
 	ft_printf("key_press\n");
+	moved = false;
 	if (keycode == K_W || keycode == K_UP)
-	{
-		ft_printf("key_press|up\n");
 		moved = move_player(so_long, UP);
-	}
 	else if (keycode == K_A || keycode == K_LEFT)
-	{
-		ft_printf("key_press|left");
 		moved = move_player(so_long, LEFT);
-	}
 	else if (keycode == K_S || keycode == K_DOWN)
-	{
-		ft_printf("key_press|down");
 		moved = move_player(so_long, DOWN);
-	}
 	else if (keycode == K_D || keycode == K_RIGHT)
-	{
-		ft_printf("key_press|right");
-		moved = move_player(so_long, DOWN);
-	}
+		moved = move_player(so_long, RIGHT);
 	else if (keycode == K_ESC)
 		close_win(so_long);
 	else
@@ -60,6 +49,9 @@ static int	key_press(int keycode, t_so_long *so_long)
 		ft_printf("debug|keycode:%d\n", keycode);
 	}
 	if (moved)
+	{
 		render_map(so_long->win, so_long->game);
+		ft_printf("moves: %d\n", so_long->game->player->moves);
+	}
 	return (0);
 }

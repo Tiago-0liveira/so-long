@@ -6,7 +6,7 @@
 /*   By: tiagoliv <tiagoliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:52:02 by tiagoliv          #+#    #+#             */
-/*   Updated: 2023/10/27 21:59:30 by tiagoliv         ###   ########.fr       */
+/*   Updated: 2023/11/02 16:00:35 by tiagoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ void	free_win(t_win *win)
 
 void	close_win(t_so_long *so_long)
 {
-	free_game(so_long->win->mlx, so_long->game);
+	if (!so_long->win)
+		free_game(NULL, so_long->game);
+	else
+		free_game(so_long->win->mlx, so_long->game);
 	free_win(so_long->win);
 	free(so_long);
 	exit(EXIT_SUCCESS);
@@ -58,7 +61,7 @@ void	free_game(void *mlx, t_game *game)
 	{
 		if (game->map)
 			free_map(game->map);
-		if (game->assets)
+		if (game->assets && mlx)
 			free_assets(mlx, game->assets);
 		if (game->player)
 			free(game->player);
@@ -66,16 +69,19 @@ void	free_game(void *mlx, t_game *game)
 	}
 }
 
-void	free_map(t_map *map)
+int	char_count(char *str, int c)
 {
-	if (map)
+	int	x;
+	int	count;
+
+	x = 0;
+	count = 0;
+	while (str[x] != '\0')
 	{
-		if (map->map)
-		{
-			while (map->height--)
-				free(map->map[map->height]);
-			free(map->map);
-		}
-		free(map);
+		if (str[x] == c)
+			count++;
+		x++;
 	}
+	return (count);
 }
+
