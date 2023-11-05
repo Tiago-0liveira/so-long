@@ -6,7 +6,7 @@
 /*   By: tiagoliv <tiagoliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 14:18:09 by tiagoliv          #+#    #+#             */
-/*   Updated: 2023/11/02 16:12:16 by tiagoliv         ###   ########.fr       */
+/*   Updated: 2023/11/03 15:12:59 by tiagoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # define MSG_INVALID_MAP_DIMENSIONS "Invalid map dimensions!\n"
 # define MSG_INVALID_MAP_IDENTIFIER "Invalid map identifier!\n"
 # define MSG_INVALID_MAP_PATH "Invalid map path!\n"
-# define MSG_INVALID_WALLS "Invalid walls! Walls must be all 1's"
+# define MSG_INVALID_WALLS "Invalid walls! Walls must be all 1's\n"
 
 typedef struct _t_map
 {
@@ -185,7 +185,7 @@ int						char_count(char *str, int c);
 t_player				*player_init(int x, int y);
 t_bool					player_can_move(t_game *game,
 							enum e_player_direction dir);
-void					set_dir_value(enum e_player_direction dir, t_point *coords);
+void					apply_dir_value(enum e_player_direction dir, t_point *coords);
 t_bool					move_player(t_so_long *so_long, enum e_player_direction dir);
 
 #endif

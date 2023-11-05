@@ -6,7 +6,7 @@
 /*   By: tiagoliv <tiagoliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:56:59 by tiagoliv          #+#    #+#             */
-/*   Updated: 2023/11/02 15:12:43 by tiagoliv         ###   ########.fr       */
+/*   Updated: 2023/11/03 15:19:29 by tiagoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ void	render_map(t_win *win, t_game *game)
 	}
 	mlx_put_image_to_window(win->mlx, win->win, game->assets->player->p_img,
 		game->player->coords.x * IMAGE_SIZE, game->player->coords.y * IMAGE_SIZE);
-	ft_printf("just rendered everything\n");
 }
 
 void	free_xpm_img(void *mlx, t_xpm_image *img)

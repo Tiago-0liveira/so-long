@@ -6,7 +6,7 @@
 /*   By: tiagoliv <tiagoliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 14:44:03 by tiagoliv          #+#    #+#             */
-/*   Updated: 2023/11/02 15:27:50 by tiagoliv         ###   ########.fr       */
+/*   Updated: 2023/11/03 15:18:00 by tiagoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	key_press(int keycode, t_so_long *so_long)
 	}
 	if (moved)
 	{
-		render_map(so_long->win, so_long->game);
+		//render_map(so_long->win, so_long->game);
 		ft_printf("moves: %d\n", so_long->game->player->moves);
 	}
 	return (0);
