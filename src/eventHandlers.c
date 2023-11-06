@@ -6,7 +6,7 @@
 /*   By: tiagoliv <tiagoliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 14:44:03 by tiagoliv          #+#    #+#             */
-/*   Updated: 2023/11/03 15:18:00 by tiagoliv         ###   ########.fr       */
+/*   Updated: 2023/11/06 15:26:36 by tiagoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ static int	key_press(int keycode, t_so_long *so_long)
 {
 	t_bool	moved;
 
-	ft_printf("key_press\n");
 	moved = false;
 	if (keycode == K_W || keycode == K_UP)
 		moved = move_player(so_long, UP);
@@ -44,10 +43,6 @@ static int	key_press(int keycode, t_so_long *so_long)
 		moved = move_player(so_long, RIGHT);
 	else if (keycode == K_ESC)
 		close_win(so_long);
-	else
-	{
-		ft_printf("debug|keycode:%d\n", keycode);
-	}
 	if (moved)
 	{
 		//render_map(so_long->win, so_long->game);

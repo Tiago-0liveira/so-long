@@ -11,6 +11,7 @@ SRC =	main.c\
 		map.c\
 		check_map.c\
 		map_utils.c\
+		errors.c\
 		utils.c\
 		player.c
 		

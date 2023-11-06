@@ -6,7 +6,7 @@
 /*   By: tiagoliv <tiagoliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 21:19:42 by tiagoliv          #+#    #+#             */
-/*   Updated: 2023/11/03 15:23:48 by tiagoliv         ###   ########.fr       */
+/*   Updated: 2023/11/06 17:55:25 by tiagoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,16 @@ t_bool	move_player(t_so_long *so_long, enum e_player_direction dir)
 		so_long->game->player->moves++;
 		apply_dir_value(dir, &so_long->game->player->coords);
 		identifier = so_long->game->map->map[so_long->game->player->coords.y][so_long->game->player->coords.x];
-		ft_printf("player 2pos: %d, %d\n", so_long->game->player->coords.x, so_long->game->player->coords.y);
 		if (identifier == ITEM)
 		{
 			so_long->game->player->items++;
-			ft_printf("asdasdsad\n");
 			so_long->game->map->map[so_long->game->player->coords.y][so_long->game->player->coords.x] = EMPTY;
 		}
 		render_map(so_long->win, so_long->game);
-		if (identifier == EXIT)
+		if (identifier == EXIT && so_long->game->map->items == so_long->game->player->items)
 		{
-			ft_printf("end game\n"); // TODO: end game
+			
+			ft_printf("You won!\n"); // TODO: end game
 			close_win(so_long);
 		}
 		return (true);

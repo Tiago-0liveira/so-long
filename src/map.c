@@ -6,7 +6,7 @@
 /*   By: tiagoliv <tiagoliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:12:54 by tiagoliv          #+#    #+#             */
-/*   Updated: 2023/11/02 15:29:47 by tiagoliv         ###   ########.fr       */
+/*   Updated: 2023/11/06 17:23:24 by tiagoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_bool	check_args(int argc, char *argv[])
 	}
 	else if (!ends_with(argv[1], MAP_FILE_EXTENSION))
 	{
-		ft_printf("Invalid map file extension!\n");
+		ft_printf(MSG_INVALID_MAP_FILE_EXTENSION);
 		return (false);
 	}
 	return (true);
@@ -88,7 +88,7 @@ t_map	*load_map(char *path, int *width, int *height)
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 		return (NULL);
-	map = map_init(*width, *height);
+	map = map_init(*width, (*height) + 1);
 	if (!map)
 		return (NULL);
 	line = get_next_line(fd);
@@ -97,7 +97,7 @@ t_map	*load_map(char *path, int *width, int *height)
 		index = 0;
 		while (line[index] && line[index] != '\n')
 		{
-			map->map[map->height - *height - 1][index] = line[index];
+			map->map[map->height - (*height) - 1][index] = line[index];
 			index++;
 		}
 		free(line);

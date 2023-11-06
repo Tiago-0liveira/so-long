@@ -6,7 +6,7 @@
 /*   By: tiagoliv <tiagoliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 14:18:09 by tiagoliv          #+#    #+#             */
-/*   Updated: 2023/11/03 15:12:59 by tiagoliv         ###   ########.fr       */
+/*   Updated: 2023/11/06 18:13:28 by tiagoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,13 @@
 
 # define IMAGE_SIZE 64
 
-# define MSG_INVALID_MAP_DIMENSIONS "Invalid map dimensions!\n"
-# define MSG_INVALID_MAP_IDENTIFIER "Invalid map identifier!\n"
-# define MSG_INVALID_MAP_PATH "Invalid map path!\n"
-# define MSG_INVALID_WALLS "Invalid walls! Walls must be all 1's\n"
+# define MSG_INVALID_MAP_FILE_EXTENSION "Error\nInvalid map file extensions!\n"
+# define MSG_INVALID_MAP_DIMENSIONS "Error\nInvalid map dimensions!\n"
+# define MSG_INVALID_MAP_IDENTIFIER "Error\nInvalid map identifier!\n"
+# define MSG_INVALID_MAP_NAME "Error\nCould not find the map!\n"
+# define MSG_INVALID_WALLS "Error\nThe map must be surrounded by walls!\n"
+# define MSG_INVALID_MAP_PATH "Error\nIt is impossible to reach the exit!\n"
+# define MSG_INVALID_MAP_STRUCTURE "Error\nInvalid map structure!\n"
 
 typedef struct _t_map
 {
@@ -41,6 +44,15 @@ typedef struct _t_map
 	int					height;
 	int					items;
 }						t_map;
+
+typedef struct _t_map_check
+{
+	int items;
+	int player;
+	int exit;
+	int x;
+	int y;
+}						t_map_checker;
 
 typedef struct _t_win
 {
@@ -104,12 +116,13 @@ enum					e_event_mask
 
 enum					e_map_check_error
 {
-	NO_ERROR = 0,
-	MAP_NOT_FOUND = 1,
-	INVALID_MAP_EXTENSION = 2,
-	INVALID_MAP_DIMENSIONS = 3,
-	INVALID_MAP_IDENTIFIER = 4,
-	INVALID_PATH = 5,
+	NO_ERROR,
+	MAP_NOT_FOUND,
+	INVALID_MAP_EXTENSION,
+	INVALID_MAP_DIMENSIONS,
+	INVALID_MAP_IDENTIFIER,
+	INVALID_MAP_STRUCTURE,
+	INVALID_PATH,
 };
 
 enum					e_key_code
@@ -160,10 +173,13 @@ t_map					*load_map(char *path, int *width, int *height);
 t_map					*check_map(char *path);
 t_map					*map_init(int width, int height);
 void					update_map(t_so_long *so_long);
-t_bool					map_has_valid_path(t_map *map);
+t_bool					map_has_valid_path(t_map *map, t_point p_coords);
+t_bool					sol_map_fill(t_map *map, t_point current, t_map *sol_map);
 t_bool					map_has_correct_identifiers(t_map *map);
 t_bool					map_has_proper_walls(t_map	*map);
 void					free_map(t_map *map);
+t_bool					copy_map(t_map *m_src, t_map *m_dest);
+void					read_everything_fd(int fd);
 
 // img.c
 
@@ -187,5 +203,10 @@ t_bool					player_can_move(t_game *game,
 							enum e_player_direction dir);
 void					apply_dir_value(enum e_player_direction dir, t_point *coords);
 t_bool					move_player(t_so_long *so_long, enum e_player_direction dir);
+
+// errors.c
+
+void				    put_error(enum e_map_check_error error, t_so_long *so_long);
+t_map_checker   		init_map_checker();
 
 #endif

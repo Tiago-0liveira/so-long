@@ -6,7 +6,7 @@
 /*   By: tiagoliv <tiagoliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 15:29:18 by tiagoliv          #+#    #+#             */
-/*   Updated: 2023/11/02 16:13:15 by tiagoliv         ###   ########.fr       */
+/*   Updated: 2023/11/06 18:24:47 by tiagoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,19 @@ t_map	*check_map(char *path)
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 	{
-		ft_printf(MSG_INVALID_MAP_PATH);
+		ft_printf(MSG_INVALID_MAP_NAME);
 		return (NULL);
 	}
 	width = 0;
 	height = 0;
 	error = get_map_size(fd, &width, &height);
+	read_everything_fd(fd);
 	close(fd);
-	if (error != NO_ERROR)
+	if ((width <= 1 || height <= 1) || error != NO_ERROR)
 	{
-		if (error == INVALID_MAP_DIMENSIONS)
-			ft_printf(MSG_INVALID_MAP_DIMENSIONS);
-		else if (error == INVALID_MAP_IDENTIFIER)
-			ft_printf(MSG_INVALID_MAP_IDENTIFIER);
+		if (width <= 1 || height <= 1)
+			error = INVALID_MAP_STRUCTURE;
+		put_error(error, NULL);
 		return (NULL);
 	}
 	return (load_map(path, &width, &height));
@@ -49,58 +49,23 @@ t_map	*map_init(int width, int height)
 	if (!map)
 		return (NULL);
 	map->width = width;
-	map->height = height + 1;
+	map->height = height;
+	map->items = 0;
 	map->map = malloc(sizeof(char *) * map->height);
 	if (!map->map)
 		return (NULL);
 	index = 0;
 	while (index < map->height)
 	{
+
 		map->map[index] = malloc(sizeof(char) * (width + 1));
 		if (!map->map[index])
 			return (NULL);
-		ft_bzero(map->map[index], width);
+		ft_bzero(map->map[index], width + 1);
 		index++;
 	}
 
 	return (map);
-}
-
-t_bool	map_has_valid_path(t_map *map)
-{
-	(void)map;
-	return (true);
-}
-
-t_bool	map_has_correct_identifiers(t_map *map)
-{
-	int	player;
-	int	exit;
-	int	items;
-	int	x;
-	int	y;
-
-	player = 0;
-	exit = 0;
-	items = 0;
-	y = 0;
-	while (y < map->height)
-	{
-		x = 0;
-		while (x < map->width)
-		{
-			if (map->map[y][x] == PLAYER)
-				player++;
-			else if (map->map[y][x] == ITEM)
-				items++;
-			if (map->map[y][x] == EXIT)
-				exit++;
-			x++;
-		}
-		y++;
-	}
-
-	return (player == 1 && exit == 1 && items >= 1);
 }
 
 void	update_map(t_so_long *so_long)
@@ -108,12 +73,8 @@ void	update_map(t_so_long *so_long)
 	int	x;
 	int	y;
 
-	ft_printf("jereererer\n");
-	if (!map_has_valid_path(so_long->game->map) || \
-		!map_has_correct_identifiers(so_long->game->map) || \
-		!map_has_proper_walls(so_long->game->map))
+	if (!map_has_correct_identifiers(so_long->game->map))
 		close_win(so_long);
-	ft_printf("jereerereaddas121213sr\n");
 	x = 0;
 	while (x < so_long->game->map->height)
 	{
@@ -131,4 +92,41 @@ void	update_map(t_so_long *so_long)
 		}
 		x++;
 	}
+	if (!map_has_proper_walls(so_long->game->map) || \
+		!map_has_valid_path(so_long->game->map, so_long->game->player->coords))
+		close_win(so_long);
 }
+
+t_bool	copy_map(t_map *m_src, t_map *m_dest)
+{
+	int	x;
+	int	y;
+	
+	if (m_src->height != m_dest->height || m_src->width != m_dest->width)
+		return (false);
+	y = 0;
+	while (y < m_src->height)
+	{
+		x = 0;
+		while (x < m_src->width)
+		{
+			m_dest->map[y][x] = m_src->map[y][x];
+			x++;
+		}
+		y++;
+	}
+	return (true);
+}
+
+void	read_everything_fd(int fd)
+{
+	char *line;
+
+	line = get_next_line(fd);
+	while (line)
+	{
+		free(line);
+		line = get_next_line(fd);
+	}
+}
+
