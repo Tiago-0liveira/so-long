@@ -116,7 +116,7 @@ $(NAME): $(MLX) $(LIBFT) $(OBJS)
 	${HOWTO}
 
 $(MLX):
-	@-cd mlx; ./configure
+	@-cd $(MLX_DIR); ./configure
 
 $(OBJ_DIR)/%.o: $(SRCS)
 	@mkdir -p $(OBJ_DIR)

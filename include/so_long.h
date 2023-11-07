@@ -6,7 +6,7 @@
 /*   By: tiagoliv <tiagoliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 14:18:09 by tiagoliv          #+#    #+#             */
-/*   Updated: 2023/11/07 13:24:28 by tiagoliv         ###   ########.fr       */
+/*   Updated: 2023/11/07 14:58:30 by tiagoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,7 @@ t_bool					is_valid_identifier(char c);
 t_xpm_image				*get_img(t_assets *assets,
 							enum e_map_identifiers identifier);
 enum e_map_check_error	get_map_size(int fd, int *width, int *height);
-t_map					*load_map(char *path, int *width, int *height);
+t_map					*load_map(int fd, int *width, int *height);
 t_map					*check_map(char *path);
 t_map					*map_init(int width, int height);
 void					update_map(t_so_long *so_long);

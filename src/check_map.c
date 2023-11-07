@@ -6,7 +6,7 @@
 /*   By: tiagoliv <tiagoliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 15:29:18 by tiagoliv          #+#    #+#             */
-/*   Updated: 2023/11/07 13:19:40 by tiagoliv         ###   ########.fr       */
+/*   Updated: 2023/11/07 15:04:41 by tiagoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,16 @@ t_map	*check_map(char *path)
 	height = 0;
 	error = get_map_size(fd, &width, &height);
 	read_everything_fd(fd);
-	close(fd);
-	if ((width <= 1 || height <= 1) || error != NO_ERROR)
-	{
-		if (width <= 1 || height <= 1)
-			error = INVALID_MAP_STRUCTURE;
+	if (width <= 1 || height <= 1)
+		error = INVALID_MAP_STRUCTURE;	
+	if (error != NO_ERROR)
 		put_error(error, NULL);
+	if (error != NO_ERROR)
 		return (NULL);
-	}
-	return (load_map(path, &width, &height));
+	fd = open(path, O_RDONLY);
+	if (fd < 0)
+		return (NULL);
+	return (load_map(fd, &width, &height));
 }
 
 t_map	*map_init(int width, int height)
@@ -126,4 +127,5 @@ void	read_everything_fd(int fd)
 		free(line);
 		line = get_next_line(fd);
 	}
+	close(fd);
 }

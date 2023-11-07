@@ -6,7 +6,7 @@
 /*   By: tiagoliv <tiagoliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:12:54 by tiagoliv          #+#    #+#             */
-/*   Updated: 2023/11/07 13:24:28 by tiagoliv         ###   ########.fr       */
+/*   Updated: 2023/11/07 15:04:00 by tiagoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,19 +77,18 @@ enum e_map_check_error	get_map_size(int fd, int *width, int *height)
 	return (NO_ERROR);
 }
 
-t_map	*load_map(char *path, int *width, int *height)
+t_map	*load_map(int fd, int *width, int *height)
 {
-	int		fd;
 	int		index;
 	char	*line;
 	t_map	*map;
 
-	fd = open(path, O_RDONLY);
-	if (fd < 0)
-		return (NULL);
 	map = map_init(*width, (*height) + 1);
 	if (!map)
+	{
+		close(fd);
 		return (NULL);
+	}
 	line = get_next_line(fd);
 	while (line)
 	{
@@ -103,5 +102,6 @@ t_map	*load_map(char *path, int *width, int *height)
 		line = get_next_line(fd);
 		(*height)--;
 	}
+	close(fd);
 	return (map);
 }
