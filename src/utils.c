@@ -6,7 +6,7 @@
 /*   By: tiagoliv <tiagoliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:52:02 by tiagoliv          #+#    #+#             */
-/*   Updated: 2023/11/06 15:28:26 by tiagoliv         ###   ########.fr       */
+/*   Updated: 2023/11/07 13:26:03 by tiagoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,3 @@ int	char_count(char *str, int c)
 	}
 	return (count);
 }
-

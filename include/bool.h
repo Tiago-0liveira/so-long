@@ -6,7 +6,7 @@
 /*   By: tiagoliv <tiagoliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 15:46:48 by tiagoliv          #+#    #+#             */
-/*   Updated: 2023/10/10 15:50:02 by tiagoliv         ###   ########.fr       */
+/*   Updated: 2023/11/07 13:26:11 by tiagoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,5 @@ typedef enum _e_bool {
 	false,
 	true
 }	t_bool;
-
 
 #endif

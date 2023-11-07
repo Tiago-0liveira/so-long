@@ -6,15 +6,15 @@
 /*   By: tiagoliv <tiagoliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 14:18:09 by tiagoliv          #+#    #+#             */
-/*   Updated: 2023/11/06 18:13:28 by tiagoliv         ###   ########.fr       */
+/*   Updated: 2023/11/07 13:24:28 by tiagoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
+# include "../.mlx/mlx.h"
 # include "../libft/libft.h"
-# include "../mlx/mlx.h"
 # include "bool.h"
 
 # define USAGE "Usage: ./so_long [<map-path>.ber]\n"
@@ -47,11 +47,11 @@ typedef struct _t_map
 
 typedef struct _t_map_check
 {
-	int items;
-	int player;
-	int exit;
-	int x;
-	int y;
+	int					items;
+	int					player;
+	int					exit;
+	int					x;
+	int					y;
 }						t_map_checker;
 
 typedef struct _t_win
@@ -78,8 +78,8 @@ typedef struct _t_assets
 
 typedef struct _t_point
 {
-	int	x;
-	int	y;
+	int					x;
+	int					y;
 }						t_point;
 
 typedef struct _t_player
@@ -166,7 +166,7 @@ void					init_event_handlers(t_so_long *so_long);
 // map.c
 t_bool					check_args(int argc, char *argv[]);
 t_bool					is_valid_identifier(char c);
-t_xpm_image				*get_img_from_identifier(t_assets *assets,
+t_xpm_image				*get_img(t_assets *assets,
 							enum e_map_identifiers identifier);
 enum e_map_check_error	get_map_size(int fd, int *width, int *height);
 t_map					*load_map(char *path, int *width, int *height);
@@ -174,9 +174,10 @@ t_map					*check_map(char *path);
 t_map					*map_init(int width, int height);
 void					update_map(t_so_long *so_long);
 t_bool					map_has_valid_path(t_map *map, t_point p_coords);
-t_bool					sol_map_fill(t_map *map, t_point current, t_map *sol_map);
+t_bool					sol_map_fill(t_map *map, t_point current,
+							t_map *sol_map);
 t_bool					map_has_correct_identifiers(t_map *map);
-t_bool					map_has_proper_walls(t_map	*map);
+t_bool					map_has_proper_walls(t_map *map);
 void					free_map(t_map *map);
 t_bool					copy_map(t_map *m_src, t_map *m_dest);
 void					read_everything_fd(int fd);
@@ -201,12 +202,15 @@ int						char_count(char *str, int c);
 t_player				*player_init(int x, int y);
 t_bool					player_can_move(t_game *game,
 							enum e_player_direction dir);
-void					apply_dir_value(enum e_player_direction dir, t_point *coords);
-t_bool					move_player(t_so_long *so_long, enum e_player_direction dir);
+void					apply_dir_value(enum e_player_direction dir,
+							t_point *coords);
+t_bool					move_player(t_so_long *so_long,
+							enum e_player_direction dir);
 
 // errors.c
 
-void				    put_error(enum e_map_check_error error, t_so_long *so_long);
-t_map_checker   		init_map_checker();
+void					put_error(enum e_map_check_error error,
+							t_so_long *so_long);
+t_map_checker			init_map_checker(void);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: tiagoliv <tiagoliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 14:17:42 by tiagoliv          #+#    #+#             */
-/*   Updated: 2023/11/06 18:17:45 by tiagoliv         ###   ########.fr       */
+/*   Updated: 2023/11/07 13:25:01 by tiagoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	main(int argc, char **argv)
 		close_win(so_long);
 	render_map(so_long->win, so_long->game);
 	init_event_handlers(so_long);
-
 	mlx_loop(so_long->win->mlx);
 	return (EXIT_SUCCESS);
 }
@@ -38,7 +37,8 @@ t_win	*win_init(int width, int height)
 	win->mlx = mlx_init();
 	if (!win->mlx)
 		return (NULL);
-	win->win = mlx_new_window(win->mlx, width * IMAGE_SIZE, height * IMAGE_SIZE, "so_long");
+	win->win = mlx_new_window(win->mlx, width * IMAGE_SIZE, \
+		height * IMAGE_SIZE, "so_long");
 	if (!win->win)
 		return (NULL);
 	return (win);
@@ -61,10 +61,10 @@ t_so_long	*so_long_init(char *map_path)
 	if (!so_long->game->map)
 		close_win(so_long);
 	update_map(so_long);
-	so_long->win = win_init(so_long->game->map->width, so_long->game->map->height);
+	so_long->win = win_init(so_long->game->map->width, \
+		so_long->game->map->height);
 	so_long->game->assets = load_assets(so_long->win->mlx);
 	if (!so_long->game->assets)
 		close_win(so_long);
-
 	return (so_long);
 }

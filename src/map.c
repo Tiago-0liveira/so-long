@@ -6,7 +6,7 @@
 /*   By: tiagoliv <tiagoliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:12:54 by tiagoliv          #+#    #+#             */
-/*   Updated: 2023/11/06 17:23:24 by tiagoliv         ###   ########.fr       */
+/*   Updated: 2023/11/07 13:24:28 by tiagoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ t_bool	is_valid_identifier(char c)
 	return (c == '0' || c == '1' || c == 'C' || c == 'E' || c == 'P');
 }
 
-t_xpm_image	*get_img_from_identifier( \
-	t_assets *assets, enum e_map_identifiers identifier)
+t_xpm_image	*get_img(t_assets *assets, enum e_map_identifiers identifier)
 {
 	if (identifier == WALL)
 		return (assets->wall);

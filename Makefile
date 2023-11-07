@@ -19,7 +19,7 @@ libdir = libft
 libname = libft.a
 LIBFT = $(libdir)/$(libname)
 
-MLX_DIR = mlx
+MLX_DIR = .mlx
 MLX_NAME = libmlx.a
 MLX = $(MLX_DIR)/$(MLX_NAME)
 

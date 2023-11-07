@@ -6,7 +6,7 @@
 /*   By: tiagoliv <tiagoliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 15:56:59 by tiagoliv          #+#    #+#             */
-/*   Updated: 2023/11/06 16:38:18 by tiagoliv         ###   ########.fr       */
+/*   Updated: 2023/11/07 13:24:40 by tiagoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ t_xpm_image	*load_xpm_img(void *mlx, char *path)
 			&xpm_img->height);
 	if (!xpm_img->p_img)
 	{
-		/* TODO: remove in the future */
 		printf("Could not load %s image!\n", path);
 		free(xpm_img);
 		return (NULL);
@@ -68,16 +67,17 @@ void	render_map(t_win *win, t_game *game)
 				game->assets->ground->p_img, j * IMAGE_SIZE, i * IMAGE_SIZE);
 			if (game->map->map[i][j] != EMPTY)
 			{
-				img = get_img_from_identifier(game->assets, game->map->map[i][j]);
-				mlx_put_image_to_window(win->mlx, win->win, img->p_img, j
-					* img->width, i * img->height);
+				img = get_img(game->assets, game->map->map[i][j]);
+				mlx_put_image_to_window(win->mlx, win->win, img->p_img, j * \
+					img->width, i * img->height);
 			}
 			j++;
 		}
 		i++;
 	}
 	mlx_put_image_to_window(win->mlx, win->win, game->assets->player->p_img,
-		game->player->coords.x * IMAGE_SIZE, game->player->coords.y * IMAGE_SIZE);
+		game->player->coords.x * IMAGE_SIZE, \
+			game->player->coords.y * IMAGE_SIZE);
 }
 
 void	free_xpm_img(void *mlx, t_xpm_image *img)

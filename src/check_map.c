@@ -6,7 +6,7 @@
 /*   By: tiagoliv <tiagoliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 15:29:18 by tiagoliv          #+#    #+#             */
-/*   Updated: 2023/11/06 18:24:47 by tiagoliv         ###   ########.fr       */
+/*   Updated: 2023/11/07 13:19:40 by tiagoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,12 @@ t_map	*map_init(int width, int height)
 	index = 0;
 	while (index < map->height)
 	{
-
 		map->map[index] = malloc(sizeof(char) * (width + 1));
 		if (!map->map[index])
 			return (NULL);
 		ft_bzero(map->map[index], width + 1);
 		index++;
 	}
-
 	return (map);
 }
 
@@ -101,7 +99,7 @@ t_bool	copy_map(t_map *m_src, t_map *m_dest)
 {
 	int	x;
 	int	y;
-	
+
 	if (m_src->height != m_dest->height || m_src->width != m_dest->width)
 		return (false);
 	y = 0;
@@ -120,7 +118,7 @@ t_bool	copy_map(t_map *m_src, t_map *m_dest)
 
 void	read_everything_fd(int fd)
 {
-	char *line;
+	char	*line;
 
 	line = get_next_line(fd);
 	while (line)
@@ -129,4 +127,3 @@ void	read_everything_fd(int fd)
 		line = get_next_line(fd);
 	}
 }
-

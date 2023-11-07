@@ -6,7 +6,7 @@
 /*   By: tiagoliv <tiagoliv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 15:49:15 by tiagoliv          #+#    #+#             */
-/*   Updated: 2023/11/06 18:14:26 by tiagoliv         ###   ########.fr       */
+/*   Updated: 2023/11/07 13:25:59 by tiagoliv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	free_map(t_map *map)
 
 t_bool	map_has_valid_path(t_map *map, t_point p_coords)
 {
-	t_map *sol_map;
+	t_map	*sol_map;
 
 	sol_map = map_init(map->width, map->height);
 	if (!sol_map)
